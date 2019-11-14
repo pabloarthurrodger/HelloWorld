@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CasesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CASEDOCKETS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CASEID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="COUNTY" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CASENUMBER" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DOCKETDATE" Type="date" />
+          <Property Name="DOCKETDESCRIPTION" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PAGES" Type="nvarchar" MaxLength="5" />
+          <Property Name="IMAGEPATH" Type="nvarchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="MAINCASES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="COUNTY" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CASENUMBER" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CASESTATUS" Type="nvarchar" MaxLength="255" />
+          <Property Name="PRIMARY_PARTY" Type="varchar(max)" />
+          <Property Name="SECONDARY_PARTY" Type="text" />
+          <Property Name="FILEDATE" Type="date" Nullable="false" />
+          <Property Name="CASETYPE" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="FORECLOSURE" Type="bit" />
+          <Property Name="CLOSEDATE" Type="date" />
+          <Property Name="JUDGE" Type="nvarchar" MaxLength="50" />
+          <Property Name="REVISADO" Type="int" />
+          <Property Name="NOTES" Type="nvarchar(max)" />
+          <Property Name="SUCESSFULLFORECLOSED" Type="bit" />
+          <Property Name="WHOMARKEDFORECLOSED" Type="int" />
+          <Property Name="PARAREVISION" Type="bit" />
+          <Property Name="AI_EVALUATE" Type="bit" />
+          <Property Name="AI_TRAINING" Type="bit" />
+          <Property Name="AI_LABEL" Type="bit" />
+          <Property Name="STRCOMPCOUNT" Type="int" />
+          <Property Name="STRCOMPWEIGHT" Type="int" />
+          <Property Name="DISMISSAL" Type="int" />
+          <Property Name="LightGbm" Type="bit" />
+          <Property Name="LightGbmConfidence" Type="float" />
+          <Property Name="FastTree" Type="bit" />
+          <Property Name="FastTreeConfidence" Type="float" />
+          <Property Name="FastForest" Type="bit" />
+          <Property Name="FastForestConfidence" Type="float" />
+          <Property Name="SdcaLogisticRegression" Type="bit" />
+          <Property Name="SdcaLogisticRegressionConf" Type="float" />
+          <Property Name="ACUERDO" Type="bit" />
+          <Property Name="NOTSERVED" Type="bit" />
+        </EntityType>
+        <EntityType Name="PARTYNAMES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CASEID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="COUNTY" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CASENUMBER" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="600" Nullable="false" />
+          <Property Name="TYPE" Type="nvarchar" MaxLength="25" />
+          <Property Name="ATTORNEY" Type="nvarchar" MaxLength="1500" />
+          <Property Name="GARBAGE" Type="bit" />
+        </EntityType>
+        <EntityType Name="RecordsXdia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COUNTY" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DATE" Type="date" Nullable="false" />
+          <Property Name="CASOS" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CASEDOCKETS_MAINCASES">
+          <End Role="MAINCASES" Type="Self.MAINCASES" Multiplicity="1" />
+          <End Role="CASEDOCKETS" Type="Self.CASEDOCKETS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MAINCASES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CASEDOCKETS">
+              <PropertyRef Name="CASEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_CASEDOCKETS_MAINCASES1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_CASEDOCKETS_MAINCASES1" />-->
+        <Association Name="FK_PARTYNAMES_MAINCASES">
+          <End Role="MAINCASES" Type="Self.MAINCASES" Multiplicity="1" />
+          <End Role="PARTYNAMES" Type="Self.PARTYNAMES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MAINCASES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PARTYNAMES">
+              <PropertyRef Name="CASEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_PARTYNAMES_MAINCASES1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_PARTYNAMES_MAINCASES1" />-->
+        <EntityContainer Name="CasesModelStoreContainer">
+          <EntitySet Name="CASEDOCKETS" EntityType="Self.CASEDOCKETS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAINCASES" EntityType="Self.MAINCASES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PARTYNAMES" EntityType="Self.PARTYNAMES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecordsXdia" EntityType="Self.RecordsXdia" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CASEDOCKETS_MAINCASES" Association="Self.FK_CASEDOCKETS_MAINCASES">
+            <End Role="MAINCASES" EntitySet="MAINCASES" />
+            <End Role="CASEDOCKETS" EntitySet="CASEDOCKETS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PARTYNAMES_MAINCASES" Association="Self.FK_PARTYNAMES_MAINCASES">
+            <End Role="MAINCASES" EntitySet="MAINCASES" />
+            <End Role="PARTYNAMES" EntitySet="PARTYNAMES" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CasesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CASEDOCKET">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CASEID" Type="Guid" Nullable="false" />
+          <Property Name="COUNTY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CASENUMBER" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DOCKETDATE" Type="DateTime" Precision="0" />
+          <Property Name="DOCKETDESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PAGES" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="IMAGEPATH" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MAINCAS" Relationship="Self.FK_CASEDOCKETS_MAINCASES" FromRole="CASEDOCKETS" ToRole="MAINCASES" />
+        </EntityType>
+        <EntityType Name="MAINCAS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="COUNTY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CASENUMBER" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CASESTATUS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PRIMARY_PARTY" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SECONDARY_PARTY" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FILEDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CASETYPE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FORECLOSURE" Type="Boolean" />
+          <Property Name="CLOSEDATE" Type="DateTime" Precision="0" />
+          <Property Name="JUDGE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="REVISADO" Type="Int32" />
+          <Property Name="NOTES" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SUCESSFULLFORECLOSED" Type="Boolean" />
+          <Property Name="WHOMARKEDFORECLOSED" Type="Int32" />
+          <Property Name="PARAREVISION" Type="Boolean" />
+          <Property Name="AI_EVALUATE" Type="Boolean" />
+          <Property Name="AI_TRAINING" Type="Boolean" />
+          <Property Name="AI_LABEL" Type="Boolean" />
+          <Property Name="STRCOMPCOUNT" Type="Int32" />
+          <Property Name="STRCOMPWEIGHT" Type="Int32" />
+          <Property Name="DISMISSAL" Type="Int32" />
+          <Property Name="LightGbm" Type="Boolean" />
+          <Property Name="LightGbmConfidence" Type="Double" />
+          <Property Name="FastTree" Type="Boolean" />
+          <Property Name="FastTreeConfidence" Type="Double" />
+          <Property Name="FastForest" Type="Boolean" />
+          <Property Name="FastForestConfidence" Type="Double" />
+          <Property Name="SdcaLogisticRegression" Type="Boolean" />
+          <Property Name="SdcaLogisticRegressionConf" Type="Double" />
+          <Property Name="ACUERDO" Type="Boolean" />
+          <Property Name="NOTSERVED" Type="Boolean" />
+          <NavigationProperty Name="CASEDOCKETS" Relationship="Self.FK_CASEDOCKETS_MAINCASES" FromRole="MAINCASES" ToRole="CASEDOCKETS" />
+          <NavigationProperty Name="PARTYNAMES" Relationship="Self.FK_PARTYNAMES_MAINCASES" FromRole="MAINCASES" ToRole="PARTYNAMES" />
+        </EntityType>
+        <EntityType Name="PARTYNAME">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CASEID" Type="Guid" Nullable="false" />
+          <Property Name="COUNTY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CASENUMBER" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="600" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TYPE" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="ATTORNEY" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <Property Name="GARBAGE" Type="Boolean" />
+          <NavigationProperty Name="MAINCAS" Relationship="Self.FK_PARTYNAMES_MAINCASES" FromRole="PARTYNAMES" ToRole="MAINCASES" />
+        </EntityType>
+        <Association Name="FK_CASEDOCKETS_MAINCASES">
+          <End Role="MAINCASES" Type="Self.MAINCAS" Multiplicity="1" />
+          <End Role="CASEDOCKETS" Type="Self.CASEDOCKET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MAINCASES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CASEDOCKETS">
+              <PropertyRef Name="CASEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PARTYNAMES_MAINCASES">
+          <End Role="MAINCASES" Type="Self.MAINCAS" Multiplicity="1" />
+          <End Role="PARTYNAMES" Type="Self.PARTYNAME" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MAINCASES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PARTYNAMES">
+              <PropertyRef Name="CASEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CASEDOCKETS" EntityType="Self.CASEDOCKET" />
+          <EntitySet Name="MAINCASES" EntityType="Self.MAINCAS" />
+          <EntitySet Name="PARTYNAMES" EntityType="Self.PARTYNAME" />
+          <AssociationSet Name="FK_CASEDOCKETS_MAINCASES" Association="Self.FK_CASEDOCKETS_MAINCASES">
+            <End Role="MAINCASES" EntitySet="MAINCASES" />
+            <End Role="CASEDOCKETS" EntitySet="CASEDOCKETS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PARTYNAMES_MAINCASES" Association="Self.FK_PARTYNAMES_MAINCASES">
+            <End Role="MAINCASES" EntitySet="MAINCASES" />
+            <End Role="PARTYNAMES" EntitySet="PARTYNAMES" />
+          </AssociationSet>
+          <EntitySet Name="RecordsXdias" EntityType="CasesModel.RecordsXdia" />
+        </EntityContainer>
+        <EntityType Name="RecordsXdia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COUNTY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CASOS" Type="Int32" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CasesModelStoreContainer" CdmEntityContainer="CaseEntities">
+          <EntitySetMapping Name="CASEDOCKETS">
+            <EntityTypeMapping TypeName="CasesModel.CASEDOCKET">
+              <MappingFragment StoreEntitySet="CASEDOCKETS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CASEID" ColumnName="CASEID" />
+                <ScalarProperty Name="COUNTY" ColumnName="COUNTY" />
+                <ScalarProperty Name="CASENUMBER" ColumnName="CASENUMBER" />
+                <ScalarProperty Name="DOCKETDATE" ColumnName="DOCKETDATE" />
+                <ScalarProperty Name="DOCKETDESCRIPTION" ColumnName="DOCKETDESCRIPTION" />
+                <ScalarProperty Name="PAGES" ColumnName="PAGES" />
+                <ScalarProperty Name="IMAGEPATH" ColumnName="IMAGEPATH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAINCASES">
+            <EntityTypeMapping TypeName="CasesModel.MAINCAS">
+              <MappingFragment StoreEntitySet="MAINCASES">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="COUNTY" ColumnName="COUNTY" />
+                <ScalarProperty Name="CASENUMBER" ColumnName="CASENUMBER" />
+                <ScalarProperty Name="CASESTATUS" ColumnName="CASESTATUS" />
+                <ScalarProperty Name="PRIMARY_PARTY" ColumnName="PRIMARY_PARTY" />
+                <ScalarProperty Name="SECONDARY_PARTY" ColumnName="SECONDARY_PARTY" />
+                <ScalarProperty Name="FILEDATE" ColumnName="FILEDATE" />
+                <ScalarProperty Name="CASETYPE" ColumnName="CASETYPE" />
+                <ScalarProperty Name="FORECLOSURE" ColumnName="FORECLOSURE" />
+                <ScalarProperty Name="CLOSEDATE" ColumnName="CLOSEDATE" />
+                <ScalarProperty Name="JUDGE" ColumnName="JUDGE" />
+                <ScalarProperty Name="REVISADO" ColumnName="REVISADO" />
+                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
+                <ScalarProperty Name="SUCESSFULLFORECLOSED" ColumnName="SUCESSFULLFORECLOSED" />
+                <ScalarProperty Name="WHOMARKEDFORECLOSED" ColumnName="WHOMARKEDFORECLOSED" />
+                <ScalarProperty Name="PARAREVISION" ColumnName="PARAREVISION" />
+                <ScalarProperty Name="AI_EVALUATE" ColumnName="AI_EVALUATE" />
+                <ScalarProperty Name="AI_TRAINING" ColumnName="AI_TRAINING" />
+                <ScalarProperty Name="AI_LABEL" ColumnName="AI_LABEL" />
+                <ScalarProperty Name="STRCOMPCOUNT" ColumnName="STRCOMPCOUNT" />
+                <ScalarProperty Name="STRCOMPWEIGHT" ColumnName="STRCOMPWEIGHT" />
+                <ScalarProperty Name="DISMISSAL" ColumnName="DISMISSAL" />
+                <ScalarProperty Name="LightGbm" ColumnName="LightGbm" />
+                <ScalarProperty Name="LightGbmConfidence" ColumnName="LightGbmConfidence" />
+                <ScalarProperty Name="FastTree" ColumnName="FastTree" />
+                <ScalarProperty Name="FastTreeConfidence" ColumnName="FastTreeConfidence" />
+                <ScalarProperty Name="FastForest" ColumnName="FastForest" />
+                <ScalarProperty Name="FastForestConfidence" ColumnName="FastForestConfidence" />
+                <ScalarProperty Name="SdcaLogisticRegression" ColumnName="SdcaLogisticRegression" />
+                <ScalarProperty Name="SdcaLogisticRegressionConf" ColumnName="SdcaLogisticRegressionConf" />
+                <ScalarProperty Name="ACUERDO" ColumnName="ACUERDO" />
+                <ScalarProperty Name="NOTSERVED" ColumnName="NOTSERVED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PARTYNAMES">
+            <EntityTypeMapping TypeName="CasesModel.PARTYNAME">
+              <MappingFragment StoreEntitySet="PARTYNAMES">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CASEID" ColumnName="CASEID" />
+                <ScalarProperty Name="COUNTY" ColumnName="COUNTY" />
+                <ScalarProperty Name="CASENUMBER" ColumnName="CASENUMBER" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="ATTORNEY" ColumnName="ATTORNEY" />
+                <ScalarProperty Name="GARBAGE" ColumnName="GARBAGE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecordsXdias">
+            <EntityTypeMapping TypeName="CasesModel.RecordsXdia">
+              <MappingFragment StoreEntitySet="RecordsXdia">
+                <ScalarProperty Name="CASOS" ColumnName="CASOS" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="COUNTY" ColumnName="COUNTY" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
