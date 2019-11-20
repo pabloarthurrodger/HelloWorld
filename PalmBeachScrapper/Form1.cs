@@ -15,7 +15,7 @@ namespace PalmBeachScrapper
     public partial class MainForm : Form
     {
         private readonly string County = "PALM BEACH";
-        private DateTime BuscaFechaGlobal = Convert.ToDateTime("05/21/2008");
+        private DateTime BuscaFechaGlobal = Convert.ToDateTime("05/11/2010");
         public MainForm()
         {
             InitializeComponent();
@@ -158,7 +158,7 @@ namespace PalmBeachScrapper
                             // Salvar en Async y Threadding.
                             SaveCases(CInfo);
                             // Slow the speed
-                            Thread.Sleep(27000);
+                            Thread.Sleep(33000);
 
 
                             // cphBody_lbSearch  // Volver a la pantalla de Busqueda
@@ -234,6 +234,7 @@ namespace PalmBeachScrapper
                     Mc.NOTES = WrkCase.Courts;
 
                     Ctx.MAINCASES.Add(Mc);
+                    Ctx.SaveChanges(); 
                 }
 
                 // Salvar Cuantos Records por fecha.
