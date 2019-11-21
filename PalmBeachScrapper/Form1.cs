@@ -16,6 +16,10 @@ namespace PalmBeachScrapper
     {
         private readonly string County = "PALM BEACH";
         private DateTime BuscaFechaGlobal = Convert.ToDateTime("05/11/2010");
+        private DateTime StartDay = Convert.ToDateTime("05/10/2010");
+        private DateTime EndDay = Convert.ToDateTime("05/10/2010");
+        private int AdicionarDias = 6;
+
         public MainForm()
         {
             InitializeComponent();
@@ -79,9 +83,10 @@ namespace PalmBeachScrapper
                             var BeginDate = doc.GetElementById("cphBody_gvSearch_txtParameter_7");
                             var EndDate = doc.GetElementById("cphBody_gvSearch_txtParameter_8");
                             var CourtType = doc.GetElementById("cphBody_gvSearch_cmbParameterPostBack_9");
-                            var SearchDate = GetMeDate();
-                            BeginDate.SetAttribute("Value", SearchDate.ToString("MM/dd/yyyy"));
-                            EndDate.SetAttribute("Value", SearchDate.ToString("MM/dd/yyyy"));
+                            // var SearchDate = GetMeDate();
+                            SelectNewRange(); 
+                            BeginDate.SetAttribute("Value", StartDay.ToString("MM/dd/yyyy"));
+                            EndDate.SetAttribute("Value", EndDay.ToString("MM/dd/yyyy"));
                             CourtType.SetAttribute("Value", "101");
                             SearchBtn.InvokeMember("Click");
                             break;
@@ -104,6 +109,27 @@ namespace PalmBeachScrapper
                             if (CasosDiaStr != null)
                             {
                                 CInfo.NumberOfCases = Convert.ToInt32(CasosDiaStr.InnerText);
+                                var wrkint = CInfo.NumberOfCases;
+                                if (wrkint == 200)
+                                {
+                                    StartDay.AddDays(AdicionarDias * -1);
+                                    StartDay.AddDays(-1);
+                                    EndDay = StartDay;
+                                    EndDay.AddDays(AdicionarDias);
+                                    AdicionarDias = AdicionarDias - 3;
+                                    MainBrowser.Navigate("https://applications.mypalmbeachclerk.com/eCaseView/search.aspx");
+                                    break;
+                                }
+                                else
+                                {
+                                    var casosxdia = wrkint / AdicionarDias;
+                                    var amplitud = casosxdia * 3;
+                                    var cabe = (200 - amplitud);
+                                    if (wrkint > cabe)
+                                    {
+                                        AdicionarDias++;
+                                    }
+                                }
                             }
 
                             var TablaCasos = WPDoc.GetElementbyId("cphBody_gvResults");
@@ -177,6 +203,15 @@ namespace PalmBeachScrapper
             }
         }
 
+        private void SelectNewRange()
+        {
+            StartDay = EndDay.AddDays(1);
+            EndDay.AddDays(AdicionarDias);
+            if (EndDay > System.DateTime.Today)
+            {
+                cbGetCases.Checked = false;
+            }
+        }
 
         private DateTime GetMeDate()
         {
@@ -233,8 +268,12 @@ namespace PalmBeachScrapper
                     Mc.FILEDATE = WrkCase.FileDate;
                     Mc.NOTES = WrkCase.Courts;
 
-                    Ctx.MAINCASES.Add(Mc);
-                    Ctx.SaveChanges(); 
+                    if (!Ctx.MAINCASES.Any(x => x.COUNTY == County && x.CASENUMBER == Mc.CASENUMBER)) 
+                    {
+                        Ctx.MAINCASES.Add(Mc);
+                    }
+
+                    // Ctx.SaveChanges(); 
                 }
 
                 // Salvar Cuantos Records por fecha.
@@ -249,6 +288,7 @@ namespace PalmBeachScrapper
             }
 
         }
+
 
         private void DiasFeriados(string County, DateTime fecha )
         {
