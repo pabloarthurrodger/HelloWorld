@@ -22,6 +22,8 @@ namespace PalmBeachScrapper
         public string TYPE { get; set; }
         public string ATTORNEY { get; set; }
         public Nullable<bool> GARBAGE { get; set; }
+        public Nullable<System.DateTime> INSERTED { get; set; }
+        public string ATTORNEYCLEAN { get; set; }
     
         public virtual MAINCAS MAINCAS { get; set; }
     }

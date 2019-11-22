@@ -17,61 +17,16 @@
           <Property Name="DOCKETDESCRIPTION" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PAGES" Type="nvarchar" MaxLength="5" />
           <Property Name="IMAGEPATH" Type="nvarchar" MaxLength="25" />
+          <Property Name="INSERTED" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ForeclosureFraudDB.dbo.CASOSSIMILARES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="CASOSSIMILARES">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="ORIGINALcaseNumber" />
-            <PropertyRef Name="COMPARAcaseNumber" />
-            <PropertyRef Name="ORIGINALfileDate" />
-            <PropertyRef Name="COMPARAfileDate" />
-          </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="ORIGINALcaseNumber" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="COMPARAcaseNumber" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ORIGINALfileDate" Type="date" Nullable="false" />
-          <Property Name="COMPARAfileDate" Type="date" Nullable="false" />
-          <Property Name="IgualesDefendants" Type="int" />
-          <Property Name="ORIGINALFinalDate" Type="date" />
-          <Property Name="COMPARAFinalDate" Type="date" />
-          <Property Name="SumaDistancia" Type="float" />
-          <Property Name="AVGDISTANCIA" Type="float" />
-          <Property Name="DistanciaFechas" Type="float" />
-          <Property Name="COMPARACION" Type="nvarchar(max)" />
-          <Property Name="ORDEN" Type="int" />
-          <Property Name="SimilarREVISADO" Type="bit" />
-          <Property Name="ORIGINALPlaintiff" Type="nvarchar" MaxLength="100" />
-          <Property Name="COMPARAPlaintiff" Type="nvarchar" MaxLength="100" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ForeclosureFraudDB.dbo.ForecloseNegativo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="ForecloseNegativo">
+        <EntityType Name="ClickPageLog">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ForeclosureFraudDB.dbo.ForeclosePositivo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="ForeclosePositivo">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ForeclosureFraudDB.dbo.IsForeclosed' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="IsForeclosed">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="FORECLOSED" />
-            <PropertyRef Name="ForeclosedText" />
-          </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="FORECLOSED" Type="bit" Nullable="false" />
-          <Property Name="ForeclosedText" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COUNTY" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="PAGE" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="TIEMPO" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="MAINCASES">
           <Key>
@@ -109,6 +64,7 @@ warning 6002: The table/view 'ForeclosureFraudDB.dbo.IsForeclosed' does not have
           <Property Name="SdcaLogisticRegressionConf" Type="float" />
           <Property Name="ACUERDO" Type="bit" />
           <Property Name="NOTSERVED" Type="bit" />
+          <Property Name="INSERTED" Type="datetime" />
         </EntityType>
         <EntityType Name="PARTYNAMES">
           <Key>
@@ -122,6 +78,8 @@ warning 6002: The table/view 'ForeclosureFraudDB.dbo.IsForeclosed' does not have
           <Property Name="TYPE" Type="nvarchar" MaxLength="25" />
           <Property Name="ATTORNEY" Type="nvarchar" MaxLength="1500" />
           <Property Name="GARBAGE" Type="bit" />
+          <Property Name="INSERTED" Type="datetime" />
+          <Property Name="ATTORNEYCLEAN" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="RecordsXdia">
           <Key>
@@ -129,7 +87,8 @@ warning 6002: The table/view 'ForeclosureFraudDB.dbo.IsForeclosed' does not have
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="COUNTY" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DATE" Type="date" Nullable="false" />
+          <Property Name="DATE1" Type="date" Nullable="false" />
+          <Property Name="DATE2" Type="date" />
           <Property Name="CASOS" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -167,46 +126,10 @@ warning 6002: The table/view 'ForeclosureFraudDB.dbo.repeatednames' does not hav
         </Association>
         <EntityContainer Name="ForeclosureFraudDBModelStoreContainer">
           <EntitySet Name="CASEDOCKETS" EntityType="Self.CASEDOCKETS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClickPageLog" EntityType="Self.ClickPageLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MAINCASES" EntityType="Self.MAINCASES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PARTYNAMES" EntityType="Self.PARTYNAMES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RecordsXdia" EntityType="Self.RecordsXdia" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CASOSSIMILARES" EntityType="Self.CASOSSIMILARES" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [CASOSSIMILARES].[ID] AS [ID], 
-    [CASOSSIMILARES].[ORIGINALcaseNumber] AS [ORIGINALcaseNumber], 
-    [CASOSSIMILARES].[COMPARAcaseNumber] AS [COMPARAcaseNumber], 
-    [CASOSSIMILARES].[ORIGINALfileDate] AS [ORIGINALfileDate], 
-    [CASOSSIMILARES].[COMPARAfileDate] AS [COMPARAfileDate], 
-    [CASOSSIMILARES].[IgualesDefendants] AS [IgualesDefendants], 
-    [CASOSSIMILARES].[ORIGINALFinalDate] AS [ORIGINALFinalDate], 
-    [CASOSSIMILARES].[COMPARAFinalDate] AS [COMPARAFinalDate], 
-    [CASOSSIMILARES].[SumaDistancia] AS [SumaDistancia], 
-    [CASOSSIMILARES].[AVGDISTANCIA] AS [AVGDISTANCIA], 
-    [CASOSSIMILARES].[DistanciaFechas] AS [DistanciaFechas], 
-    [CASOSSIMILARES].[COMPARACION] AS [COMPARACION], 
-    [CASOSSIMILARES].[ORDEN] AS [ORDEN], 
-    [CASOSSIMILARES].[SimilarREVISADO] AS [SimilarREVISADO], 
-    [CASOSSIMILARES].[ORIGINALPlaintiff] AS [ORIGINALPlaintiff], 
-    [CASOSSIMILARES].[COMPARAPlaintiff] AS [COMPARAPlaintiff]
-    FROM [dbo].[CASOSSIMILARES] AS [CASOSSIMILARES]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ForecloseNegativo" EntityType="Self.ForecloseNegativo" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ForecloseNegativo].[ID] AS [ID]
-    FROM [dbo].[ForecloseNegativo] AS [ForecloseNegativo]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ForeclosePositivo" EntityType="Self.ForeclosePositivo" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ForeclosePositivo].[ID] AS [ID]
-    FROM [dbo].[ForeclosePositivo] AS [ForeclosePositivo]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="IsForeclosed" EntityType="Self.IsForeclosed" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [IsForeclosed].[ID] AS [ID], 
-    [IsForeclosed].[FORECLOSED] AS [FORECLOSED], 
-    [IsForeclosed].[ForeclosedText] AS [ForeclosedText]
-    FROM [dbo].[IsForeclosed] AS [IsForeclosed]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="repeatednames" EntityType="Self.repeatednames" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [repeatednames].[NAME] AS [NAME], 
@@ -230,11 +153,6 @@ warning 6002: The table/view 'ForeclosureFraudDB.dbo.repeatednames' does not hav
           <EntitySet Name="CASEDOCKETS" EntityType="ForeclosureFraudDBModel.CASEDOCKET" />
           <EntitySet Name="MAINCASES" EntityType="ForeclosureFraudDBModel.MAINCAS" />
           <EntitySet Name="PARTYNAMES" EntityType="ForeclosureFraudDBModel.PARTYNAME" />
-          <EntitySet Name="RecordsXdias" EntityType="ForeclosureFraudDBModel.RecordsXdia" />
-          <EntitySet Name="CASOSSIMILARES" EntityType="ForeclosureFraudDBModel.CASOSSIMILARE" />
-          <EntitySet Name="ForecloseNegativoes" EntityType="ForeclosureFraudDBModel.ForecloseNegativo" />
-          <EntitySet Name="ForeclosePositivoes" EntityType="ForeclosureFraudDBModel.ForeclosePositivo" />
-          <EntitySet Name="IsForecloseds" EntityType="ForeclosureFraudDBModel.IsForeclosed" />
           <EntitySet Name="repeatednames" EntityType="ForeclosureFraudDBModel.repeatedname" />
           <AssociationSet Name="FK_CASEDOCKETS_MAINCASES" Association="ForeclosureFraudDBModel.FK_CASEDOCKETS_MAINCASES">
             <End Role="MAINCAS" EntitySet="MAINCASES" />
@@ -244,6 +162,8 @@ warning 6002: The table/view 'ForeclosureFraudDB.dbo.repeatednames' does not hav
             <End Role="MAINCAS" EntitySet="MAINCASES" />
             <End Role="PARTYNAME" EntitySet="PARTYNAMES" />
           </AssociationSet>
+          <EntitySet Name="ClickPageLogs" EntityType="ForeclosureFraudDBModel.ClickPageLog" />
+          <EntitySet Name="RecordsXdias" EntityType="ForeclosureFraudDBModel.RecordsXdia" />
         </EntityContainer>
         <EntityType Name="CASEDOCKET">
           <Key>
@@ -258,6 +178,7 @@ warning 6002: The table/view 'ForeclosureFraudDB.dbo.repeatednames' does not hav
           <Property Name="PAGES" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="IMAGEPATH" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="MAINCAS" Relationship="ForeclosureFraudDBModel.FK_CASEDOCKETS_MAINCASES" FromRole="CASEDOCKET" ToRole="MAINCAS" />
+          <Property Name="INSERTED" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="MAINCAS">
           <Key>
@@ -297,6 +218,7 @@ warning 6002: The table/view 'ForeclosureFraudDB.dbo.repeatednames' does not hav
           <Property Name="NOTSERVED" Type="Boolean" />
           <NavigationProperty Name="CASEDOCKETS" Relationship="ForeclosureFraudDBModel.FK_CASEDOCKETS_MAINCASES" FromRole="MAINCAS" ToRole="CASEDOCKET" />
           <NavigationProperty Name="PARTYNAMES" Relationship="ForeclosureFraudDBModel.FK_PARTYNAMES_MAINCASES" FromRole="MAINCAS" ToRole="PARTYNAME" />
+          <Property Name="INSERTED" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="PARTYNAME">
           <Key>
@@ -311,62 +233,8 @@ warning 6002: The table/view 'ForeclosureFraudDB.dbo.repeatednames' does not hav
           <Property Name="ATTORNEY" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
           <Property Name="GARBAGE" Type="Boolean" />
           <NavigationProperty Name="MAINCAS" Relationship="ForeclosureFraudDBModel.FK_PARTYNAMES_MAINCASES" FromRole="PARTYNAME" ToRole="MAINCAS" />
-        </EntityType>
-        <EntityType Name="RecordsXdia">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="COUNTY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DATE" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CASOS" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="CASOSSIMILARE">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="ORIGINALcaseNumber" />
-            <PropertyRef Name="COMPARAcaseNumber" />
-            <PropertyRef Name="ORIGINALfileDate" />
-            <PropertyRef Name="COMPARAfileDate" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="ORIGINALcaseNumber" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="COMPARAcaseNumber" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ORIGINALfileDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="COMPARAfileDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IgualesDefendants" Type="Int32" />
-          <Property Name="ORIGINALFinalDate" Type="DateTime" Precision="0" />
-          <Property Name="COMPARAFinalDate" Type="DateTime" Precision="0" />
-          <Property Name="SumaDistancia" Type="Double" />
-          <Property Name="AVGDISTANCIA" Type="Double" />
-          <Property Name="DistanciaFechas" Type="Double" />
-          <Property Name="COMPARACION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ORDEN" Type="Int32" />
-          <Property Name="SimilarREVISADO" Type="Boolean" />
-          <Property Name="ORIGINALPlaintiff" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="COMPARAPlaintiff" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="ForecloseNegativo">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ForeclosePositivo">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Guid" Nullable="false" />
-        </EntityType>
-        <EntityType Name="IsForeclosed">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="FORECLOSED" />
-            <PropertyRef Name="ForeclosedText" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="FORECLOSED" Type="Boolean" Nullable="false" />
-          <Property Name="ForeclosedText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="INSERTED" Type="DateTime" Precision="3" />
+          <Property Name="ATTORNEYCLEAN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="repeatedname">
           <Key>
@@ -399,6 +267,25 @@ warning 6002: The table/view 'ForeclosureFraudDB.dbo.repeatednames' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ClickPageLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COUNTY" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PAGE" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="TIEMPO" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="RecordsXdia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COUNTY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DATE1" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DATE2" Type="DateTime" Precision="0" />
+          <Property Name="CASOS" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -408,6 +295,7 @@ warning 6002: The table/view 'ForeclosureFraudDB.dbo.repeatednames' does not hav
           <EntitySetMapping Name="CASEDOCKETS">
             <EntityTypeMapping TypeName="ForeclosureFraudDBModel.CASEDOCKET">
               <MappingFragment StoreEntitySet="CASEDOCKETS">
+                <ScalarProperty Name="INSERTED" ColumnName="INSERTED" />
                 <ScalarProperty Name="IMAGEPATH" ColumnName="IMAGEPATH" />
                 <ScalarProperty Name="PAGES" ColumnName="PAGES" />
                 <ScalarProperty Name="DOCKETDESCRIPTION" ColumnName="DOCKETDESCRIPTION" />
@@ -422,6 +310,7 @@ warning 6002: The table/view 'ForeclosureFraudDB.dbo.repeatednames' does not hav
           <EntitySetMapping Name="MAINCASES">
             <EntityTypeMapping TypeName="ForeclosureFraudDBModel.MAINCAS">
               <MappingFragment StoreEntitySet="MAINCASES">
+                <ScalarProperty Name="INSERTED" ColumnName="INSERTED" />
                 <ScalarProperty Name="NOTSERVED" ColumnName="NOTSERVED" />
                 <ScalarProperty Name="ACUERDO" ColumnName="ACUERDO" />
                 <ScalarProperty Name="SdcaLogisticRegressionConf" ColumnName="SdcaLogisticRegressionConf" />
@@ -460,6 +349,8 @@ warning 6002: The table/view 'ForeclosureFraudDB.dbo.repeatednames' does not hav
           <EntitySetMapping Name="PARTYNAMES">
             <EntityTypeMapping TypeName="ForeclosureFraudDBModel.PARTYNAME">
               <MappingFragment StoreEntitySet="PARTYNAMES">
+                <ScalarProperty Name="ATTORNEYCLEAN" ColumnName="ATTORNEYCLEAN" />
+                <ScalarProperty Name="INSERTED" ColumnName="INSERTED" />
                 <ScalarProperty Name="GARBAGE" ColumnName="GARBAGE" />
                 <ScalarProperty Name="ATTORNEY" ColumnName="ATTORNEY" />
                 <ScalarProperty Name="TYPE" ColumnName="TYPE" />
@@ -471,66 +362,32 @@ warning 6002: The table/view 'ForeclosureFraudDB.dbo.repeatednames' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RecordsXdias">
-            <EntityTypeMapping TypeName="ForeclosureFraudDBModel.RecordsXdia">
-              <MappingFragment StoreEntitySet="RecordsXdia">
-                <ScalarProperty Name="CASOS" ColumnName="CASOS" />
-                <ScalarProperty Name="DATE" ColumnName="DATE" />
-                <ScalarProperty Name="COUNTY" ColumnName="COUNTY" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CASOSSIMILARES">
-            <EntityTypeMapping TypeName="ForeclosureFraudDBModel.CASOSSIMILARE">
-              <MappingFragment StoreEntitySet="CASOSSIMILARES">
-                <ScalarProperty Name="COMPARAPlaintiff" ColumnName="COMPARAPlaintiff" />
-                <ScalarProperty Name="ORIGINALPlaintiff" ColumnName="ORIGINALPlaintiff" />
-                <ScalarProperty Name="SimilarREVISADO" ColumnName="SimilarREVISADO" />
-                <ScalarProperty Name="ORDEN" ColumnName="ORDEN" />
-                <ScalarProperty Name="COMPARACION" ColumnName="COMPARACION" />
-                <ScalarProperty Name="DistanciaFechas" ColumnName="DistanciaFechas" />
-                <ScalarProperty Name="AVGDISTANCIA" ColumnName="AVGDISTANCIA" />
-                <ScalarProperty Name="SumaDistancia" ColumnName="SumaDistancia" />
-                <ScalarProperty Name="COMPARAFinalDate" ColumnName="COMPARAFinalDate" />
-                <ScalarProperty Name="ORIGINALFinalDate" ColumnName="ORIGINALFinalDate" />
-                <ScalarProperty Name="IgualesDefendants" ColumnName="IgualesDefendants" />
-                <ScalarProperty Name="COMPARAfileDate" ColumnName="COMPARAfileDate" />
-                <ScalarProperty Name="ORIGINALfileDate" ColumnName="ORIGINALfileDate" />
-                <ScalarProperty Name="COMPARAcaseNumber" ColumnName="COMPARAcaseNumber" />
-                <ScalarProperty Name="ORIGINALcaseNumber" ColumnName="ORIGINALcaseNumber" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ForecloseNegativoes">
-            <EntityTypeMapping TypeName="ForeclosureFraudDBModel.ForecloseNegativo">
-              <MappingFragment StoreEntitySet="ForecloseNegativo">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ForeclosePositivoes">
-            <EntityTypeMapping TypeName="ForeclosureFraudDBModel.ForeclosePositivo">
-              <MappingFragment StoreEntitySet="ForeclosePositivo">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="IsForecloseds">
-            <EntityTypeMapping TypeName="ForeclosureFraudDBModel.IsForeclosed">
-              <MappingFragment StoreEntitySet="IsForeclosed">
-                <ScalarProperty Name="ForeclosedText" ColumnName="ForeclosedText" />
-                <ScalarProperty Name="FORECLOSED" ColumnName="FORECLOSED" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="repeatednames">
             <EntityTypeMapping TypeName="ForeclosureFraudDBModel.repeatedname">
               <MappingFragment StoreEntitySet="repeatednames">
                 <ScalarProperty Name="numero" ColumnName="numero" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClickPageLogs">
+            <EntityTypeMapping TypeName="ForeclosureFraudDBModel.ClickPageLog">
+              <MappingFragment StoreEntitySet="ClickPageLog">
+                <ScalarProperty Name="TIEMPO" ColumnName="TIEMPO" />
+                <ScalarProperty Name="PAGE" ColumnName="PAGE" />
+                <ScalarProperty Name="COUNTY" ColumnName="COUNTY" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecordsXdias">
+            <EntityTypeMapping TypeName="ForeclosureFraudDBModel.RecordsXdia">
+              <MappingFragment StoreEntitySet="RecordsXdia">
+                <ScalarProperty Name="CASOS" ColumnName="CASOS" />
+                <ScalarProperty Name="DATE2" ColumnName="DATE2" />
+                <ScalarProperty Name="DATE1" ColumnName="DATE1" />
+                <ScalarProperty Name="COUNTY" ColumnName="COUNTY" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

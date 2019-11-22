@@ -53,6 +53,7 @@ namespace PalmBeachScrapper
         public Nullable<double> SdcaLogisticRegressionConf { get; set; }
         public Nullable<bool> ACUERDO { get; set; }
         public Nullable<bool> NOTSERVED { get; set; }
+        public Nullable<System.DateTime> INSERTED { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CASEDOCKET> CASEDOCKETS { get; set; }

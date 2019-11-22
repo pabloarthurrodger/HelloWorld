@@ -28,11 +28,8 @@ namespace PalmBeachScrapper
         public virtual DbSet<CASEDOCKET> CASEDOCKETS { get; set; }
         public virtual DbSet<MAINCAS> MAINCASES { get; set; }
         public virtual DbSet<PARTYNAME> PARTYNAMES { get; set; }
-        public virtual DbSet<RecordsXdia> RecordsXdias { get; set; }
-        public virtual DbSet<CASOSSIMILARE> CASOSSIMILARES { get; set; }
-        public virtual DbSet<ForecloseNegativo> ForecloseNegativoes { get; set; }
-        public virtual DbSet<ForeclosePositivo> ForeclosePositivoes { get; set; }
-        public virtual DbSet<IsForeclosed> IsForecloseds { get; set; }
         public virtual DbSet<repeatedname> repeatednames { get; set; }
+        public virtual DbSet<ClickPageLog> ClickPageLogs { get; set; }
+        public virtual DbSet<RecordsXdia> RecordsXdias { get; set; }
     }
 }

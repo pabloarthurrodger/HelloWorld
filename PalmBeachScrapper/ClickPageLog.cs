@@ -12,10 +12,11 @@ namespace PalmBeachScrapper
     using System;
     using System.Collections.Generic;
     
-    public partial class IsForeclosed
+    public partial class ClickPageLog
     {
         public int ID { get; set; }
-        public bool FORECLOSED { get; set; }
-        public string ForeclosedText { get; set; }
+        public string COUNTY { get; set; }
+        public string PAGE { get; set; }
+        public System.DateTime TIEMPO { get; set; }
     }
 }

@@ -22,6 +22,7 @@ namespace PalmBeachScrapper
         public string DOCKETDESCRIPTION { get; set; }
         public string PAGES { get; set; }
         public string IMAGEPATH { get; set; }
+        public Nullable<System.DateTime> INSERTED { get; set; }
     
         public virtual MAINCAS MAINCAS { get; set; }
     }

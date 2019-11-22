@@ -8,14 +8,11 @@
         <EntityTypeShape EntityType="ForeclosureFraudDBModel.CASEDOCKET" Width="1.5" PointX="3" PointY="1.625" />
         <EntityTypeShape EntityType="ForeclosureFraudDBModel.MAINCAS" Width="1.5" PointX="0.75" PointY="1.125" />
         <EntityTypeShape EntityType="ForeclosureFraudDBModel.PARTYNAME" Width="1.5" PointX="3" PointY="4.75" />
-        <EntityTypeShape EntityType="ForeclosureFraudDBModel.RecordsXdia" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ForeclosureFraudDBModel.CASOSSIMILARE" Width="1.5" PointX="5.75" PointY="3.75" />
-        <EntityTypeShape EntityType="ForeclosureFraudDBModel.ForecloseNegativo" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ForeclosureFraudDBModel.ForeclosePositivo" Width="1.5" PointX="7.75" PointY="2.75" />
-        <EntityTypeShape EntityType="ForeclosureFraudDBModel.IsForeclosed" Width="1.5" PointX="7.75" PointY="4.75" />
-        <EntityTypeShape EntityType="ForeclosureFraudDBModel.repeatedname" Width="1.5" PointX="7.75" PointY="7.75" />
+        <EntityTypeShape EntityType="ForeclosureFraudDBModel.repeatedname" Width="1.5" PointX="10.5" PointY="2.375" />
         <AssociationConnector Association="ForeclosureFraudDBModel.FK_CASEDOCKETS_MAINCASES" />
         <AssociationConnector Association="ForeclosureFraudDBModel.FK_PARTYNAMES_MAINCASES" />
+        <EntityTypeShape EntityType="ForeclosureFraudDBModel.ClickPageLog" Width="1.5" PointX="10" PointY="4.5" />
+        <EntityTypeShape EntityType="ForeclosureFraudDBModel.RecordsXdia" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

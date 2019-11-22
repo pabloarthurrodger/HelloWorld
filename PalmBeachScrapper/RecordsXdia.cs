@@ -16,7 +16,8 @@ namespace PalmBeachScrapper
     {
         public int ID { get; set; }
         public string COUNTY { get; set; }
-        public System.DateTime DATE { get; set; }
+        public System.DateTime DATE1 { get; set; }
+        public Nullable<System.DateTime> DATE2 { get; set; }
         public int CASOS { get; set; }
     }
 }
