@@ -15,7 +15,7 @@ namespace PalmBeachScrapper
     public partial class MainForm : Form
     {
         private readonly string County = "PALM BEACH";
-        private DateTime BuscaFechaGlobal = Convert.ToDateTime("05/21/2008");
+        private DateTime BuscaFechaGlobal = Convert.ToDateTime("05/11/2010");
         public MainForm()
         {
             InitializeComponent();

@@ -32,6 +32,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.MainBrowser = new System.Windows.Forms.WebBrowser();
             this.pnlMainTop = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.nupYear = new System.Windows.Forms.NumericUpDown();
             this.cbGetCases = new System.Windows.Forms.CheckBox();
             this.btnGO = new System.Windows.Forms.Button();
@@ -39,7 +40,6 @@
             this.btnForward = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
             this.tbMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.pnlMainTop.SuspendLayout();
@@ -54,7 +54,7 @@
             this.tbMain.Location = new System.Drawing.Point(0, 0);
             this.tbMain.Name = "tbMain";
             this.tbMain.SelectedIndex = 0;
-            this.tbMain.Size = new System.Drawing.Size(1438, 751);
+            this.tbMain.Size = new System.Drawing.Size(1370, 749);
             this.tbMain.TabIndex = 0;
             // 
             // tabPage1
@@ -64,7 +64,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1430, 725);
+            this.tabPage1.Size = new System.Drawing.Size(1362, 723);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -75,7 +75,7 @@
             this.MainBrowser.Location = new System.Drawing.Point(3, 90);
             this.MainBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.MainBrowser.Name = "MainBrowser";
-            this.MainBrowser.Size = new System.Drawing.Size(1424, 632);
+            this.MainBrowser.Size = new System.Drawing.Size(1356, 630);
             this.MainBrowser.TabIndex = 1;
             this.MainBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.MainBrowser_DocumentCompleted);
             // 
@@ -91,8 +91,18 @@
             this.pnlMainTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlMainTop.Location = new System.Drawing.Point(3, 3);
             this.pnlMainTop.Name = "pnlMainTop";
-            this.pnlMainTop.Size = new System.Drawing.Size(1424, 87);
+            this.pnlMainTop.Size = new System.Drawing.Size(1356, 87);
             this.pnlMainTop.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1268, 48);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // nupYear
             // 
@@ -176,21 +186,11 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1268, 48);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1438, 751);
+            this.ClientSize = new System.Drawing.Size(1370, 749);
             this.Controls.Add(this.tbMain);
             this.Name = "MainForm";
             this.Text = "Form1";
